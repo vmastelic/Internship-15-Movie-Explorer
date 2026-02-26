@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react"
 import "../style/Movies.css"
 import { searchMovies } from "../api/omdb";
+import SearchBar from "../components/Searchbar.jsx";
+import SortSelect from "../components/SortSelect.jsx";
+import MovieGrid from "../components/MovieGrid.jsx";
 
 function Movies() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState("")
   const [query, setQuery] = useState("")
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
@@ -17,10 +20,19 @@ function Movies() {
   }, [])
 
   useEffect(() => {
+
+    const trimmed = input.trim()
+    if (!trimmed) {
+      clearTimeout(debouncedRef.current)
+      setQuery("")
+      setMovies([])
+      setError("")
+      return
+    }
     clearTimeout(debouncedRef.current)
     debouncedRef.current = setTimeout(() => {
-      setQuery(input.trim())
-    }, 300)
+      setQuery(trimmed)
+    }, 200)
 
     return () => clearTimeout(debouncedRef.current);
   }, [input])
@@ -62,12 +74,16 @@ function Movies() {
     <div>
       <h1 className="movies-title">Movies</h1>
 
-      <input
-        ref = {inputRef}
+      <SearchBar
+        inputRef={inputRef}
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Search movies..."
       />
+      
+      {/* <SortSelect
+        sortBy={sortBy}
+        onChange={(e) => setSortBy(e.target.value)}
+      /> */}
       
       {!query && <p>Type in film title.</p>}
       {loading && <p>Loading movies...</p>}
@@ -76,19 +92,7 @@ function Movies() {
         <p>No movies found for this query.</p>
       )}
 
-      <div className="movies-grid">
-        {movies.map((m) => (
-          <div key={m.imdbID} className="movie-card">
-            {m.Poster && m.Poster !== "N/A" ? (
-              <img src={m.Poster} alt={m.Title} style={{width: "100%"}}/>
-            ) : (
-              <div style={{width: "100%", aspectRatio: "2/3"}}>No poster</div>
-            )}
-            <p>{m.Title}</p>
-            <p>{m.Year}</p>
-          </div>
-        ))}
-      </div>
+      <MovieGrid movies={movies} />
     </div>
   )
 
