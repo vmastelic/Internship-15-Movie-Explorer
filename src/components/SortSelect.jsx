@@ -3,7 +3,10 @@ function SortSelect({ sortBy, onChange }) {
     <label>
       Sort by:{" "}
       <select value={sortBy} onChange={onChange}>
-        <option value="year">year</option>
+        <option value="relevance">relevance</option>
+        <option value="year-asc">year (oldest)</option>
+        <option value="year-desc">year (newest)</option>
+        <option value="title">title (A-Z)</option>
         <option value="rating">rating</option>
       </select>
     </label>

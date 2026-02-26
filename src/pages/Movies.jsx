@@ -1,19 +1,25 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import "../style/Movies.css"
 import { searchMovies } from "../api/omdb";
 import SearchBar from "../components/Searchbar.jsx";
 import SortSelect from "../components/SortSelect.jsx";
 import MovieGrid from "../components/MovieGrid.jsx";
+import { sortMovies } from "../utils/SortMovies.js";
 
 function Movies() {
   const [input, setInput] = useState("")
   const [query, setQuery] = useState("")
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("") 
+  const [error, setError] = useState("")
+  const [sortBy, setSortBy] = useState("year-desc")
 
   const debouncedRef = useRef(null);
   const inputRef = useRef(null);
+
+  const sortedMovies = useMemo(() => {
+    return sortMovies(movies, sortBy)
+  }, [movies, sortBy]);
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -32,7 +38,7 @@ function Movies() {
     clearTimeout(debouncedRef.current)
     debouncedRef.current = setTimeout(() => {
       setQuery(trimmed)
-    }, 200)
+    }, 500)
 
     return () => clearTimeout(debouncedRef.current);
   }, [input])
@@ -80,10 +86,10 @@ function Movies() {
         onChange={(e) => setInput(e.target.value)}
       />
       
-      {/* <SortSelect
+      <SortSelect
         sortBy={sortBy}
         onChange={(e) => setSortBy(e.target.value)}
-      /> */}
+      />
       
       {!query && <p>Type in film title.</p>}
       {loading && <p>Loading movies...</p>}
@@ -92,7 +98,7 @@ function Movies() {
         <p>No movies found for this query.</p>
       )}
 
-      <MovieGrid movies={movies} />
+      <MovieGrid movies={sortedMovies} />
     </div>
   )
 
