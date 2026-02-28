@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getMovieById } from "../api/omdb"
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 function MovieDetail() {
   const { id } = useParams()
@@ -9,6 +10,20 @@ function MovieDetail() {
   const [movie, setMovie] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+  const [favorites, setFavorites] = useLocalStorage("favorites", [])
+  
+  const isFavorite = useMemo(
+    () => favorites.includes(id),
+    [favorites, id]
+  )
+  
+  function toggleFavorite() {
+    setFavorites((prev) => {
+      if (prev.includes(id)) return prev.filter((x) => x !== id)
+      return [...prev, id]
+    })
+  }
 
   useEffect(() => {
     const controller = new AbortController()
@@ -46,6 +61,9 @@ function MovieDetail() {
       </p>
       <p>{movie.Genre}</p>
       <p>{movie.Plot}</p>
+      <button onClick={toggleFavorite}>
+        {isFavorite ? "Remove from favorites" : "Add to favorites"}
+      </button>
     </div>
   )
 }
