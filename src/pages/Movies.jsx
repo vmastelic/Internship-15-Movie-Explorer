@@ -12,7 +12,7 @@ function Movies() {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const [sortBy, setSortBy] = useState("year-desc")
+  const [sortBy, setSortBy] = useState("relevance")
 
   const debouncedRef = useRef(null);
   const inputRef = useRef(null);

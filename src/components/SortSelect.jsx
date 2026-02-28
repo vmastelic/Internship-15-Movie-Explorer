@@ -6,8 +6,7 @@ function SortSelect({ sortBy, onChange }) {
         <option value="relevance">relevance</option>
         <option value="year-asc">year (oldest)</option>
         <option value="year-desc">year (newest)</option>
-        <option value="title">title (A-Z)</option>
-        <option value="rating">rating</option>
+        <option value="title-asc">title (A-Z)</option>
       </select>
     </label>
   )
