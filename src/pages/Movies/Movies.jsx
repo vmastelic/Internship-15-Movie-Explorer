@@ -78,8 +78,9 @@ function Movies() {
 
   return (
     <div>
-      <h1 className="movies-title">Movies</h1>
+      <h1 className={styles.moviesTitle}>Movies</h1>
 
+      <div className={styles.searchAndSort}>
       <SearchBar
         inputRef={inputRef}
         value={input}
@@ -89,7 +90,8 @@ function Movies() {
       <SortSelect
         sortBy={sortBy}
         onChange={(e) => setSortBy(e.target.value)}
-      />
+      /> 
+      </div>
       
       {!query && <p>Type in film title.</p>}
       {loading && <p>Loading movies...</p>}
