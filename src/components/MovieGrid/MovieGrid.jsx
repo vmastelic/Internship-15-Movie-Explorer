@@ -1,10 +1,11 @@
-import MovieCard from "./MovieCard"
+import MovieCard from "../MovieCard/MovieCard"
+import styles from "./MovieGrid.module.css"
 
 function MovieGrid({ movies }) {
   const visible = movies.filter((m) => m.Poster && m.Poster !== "N/A")
 
   return (
-    <div className="movies-grid">
+    <div className={styles.grid}>
       {visible.map((m) => (
         <div key={m.imdbID}>
           <MovieCard movie={m} />

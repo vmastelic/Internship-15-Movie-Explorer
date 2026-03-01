@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getMovieById } from "../api/omdb"
-import { useLocalStorage } from "../hooks/useLocalStorage"
+import { getMovieById } from "../../api/omdb"
+import { useLocalStorage } from "../../hooks/useLocalStorage"
 
 function MovieDetail() {
   const { id } = useParams()

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react"
-import "../style/Movies.css"
-import { searchMovies } from "../api/omdb";
-import SearchBar from "../components/Searchbar.jsx";
-import SortSelect from "../components/SortSelect.jsx";
-import MovieGrid from "../components/MovieGrid.jsx";
-import { sortMovies } from "../utils/SortMovies.js";
+import styles from "./Movies.module.css"
+import { searchMovies } from "../../api/omdb";
+import SearchBar from "../../components/SearchBar/Searchbar.jsx";
+import SortSelect from "../../components/SortSelect/SortSelect.jsx";
+import MovieGrid from "../../components/MovieGrid/MovieGrid.jsx";
+import { sortMovies } from "../../utils/SortMovies.js";
 
 function Movies() {
   const [input, setInput] = useState("")

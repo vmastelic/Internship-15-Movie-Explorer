@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useLocalStorage } from "../hooks/useLocalStorage"
-import { getMovieById } from "../api/omdb"
+import { useLocalStorage } from "../../hooks/useLocalStorage"
+import { getMovieById } from "../../api/omdb"
 
 function Favorites() {
   const [favoriteIds, setFavoriteIds] = useLocalStorage("favorites", [])

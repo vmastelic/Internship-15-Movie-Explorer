@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
+import styles from "./MovieCard.module.css"
 
 function MovieCard({ movie }) {
   return (
     <Link
-      className="movie-card"
+      className={styles.card}
       to={`/movies/${movie.imdbID}`}
       >
       <img src={movie.Poster} alt={movie.Title} style={{ width: "100%" }} />
