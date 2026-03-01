@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import styles from "./Home.module.css"
 
 function Home() {
   return (
@@ -7,7 +8,7 @@ function Home() {
 
       <h3>This app allows you to search and filter movies</h3>
 
-      <div>
+      <div className={styles.homeButtons}>
         <Link to="/movies">
           <button>Movies</button>
         </Link>

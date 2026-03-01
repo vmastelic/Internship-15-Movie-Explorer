@@ -5,6 +5,7 @@ import SearchBar from "../../components/SearchBar/Searchbar.jsx";
 import SortSelect from "../../components/SortSelect/SortSelect.jsx";
 import MovieGrid from "../../components/MovieGrid/MovieGrid.jsx";
 import { sortMovies } from "../../utils/SortMovies.js";
+import { useNavigate } from "react-router-dom";
 
 function Movies() {
   const [input, setInput] = useState("")
@@ -16,6 +17,8 @@ function Movies() {
 
   const debouncedRef = useRef(null);
   const inputRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const sortedMovies = useMemo(() => {
     return sortMovies(movies, sortBy)
@@ -78,19 +81,20 @@ function Movies() {
 
   return (
     <div>
+      <button onClick={() => navigate(-1)}>Back</button>
       <h1 className={styles.moviesTitle}>Movies</h1>
 
       <div className={styles.searchAndSort}>
-      <SearchBar
-        inputRef={inputRef}
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
+        <SearchBar
+          inputRef={inputRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
       
-      <SortSelect
-        sortBy={sortBy}
-        onChange={(e) => setSortBy(e.target.value)}
-      /> 
+        <SortSelect
+          sortBy={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        /> 
       </div>
       
       {!query && <p>Type in film title.</p>}

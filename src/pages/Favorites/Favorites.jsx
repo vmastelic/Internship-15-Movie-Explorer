@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import { useLocalStorage } from "../../hooks/useLocalStorage"
 import { getMovieById } from "../../api/omdb"
+import { useNavigate } from "react-router-dom";
 
 function Favorites() {
   const [favoriteIds, setFavoriteIds] = useLocalStorage("favorites", [])
   const [movies, setMovies] = useState([])
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const controller = new AbortController()
@@ -26,6 +29,7 @@ function Favorites() {
 
   return (
     <div>
+      <button onClick={() => navigate(-1)}>Back</button>
       <h1>Favorites</h1>
 
       {favoriteIds.length === 0 && <p>No favorites yet.</p>}
